@@ -1,0 +1,7 @@
+from PIL import Image
+import numpy as np
+img = Image.open('testimage/7.png')
+img = img.convert('L')
+img_array = np.asarray(img)
+img_array = img_array.ravel()
+img_array =1- (1.0/255)*img_array
