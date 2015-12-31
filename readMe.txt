@@ -14,6 +14,7 @@ imgRecognize.py : can identify the images (28x28 greyscale) in testimage folder;
 imgCaptureRecognize.py : identifies the image by input from camera
 
 To RUN : 
+* runscript.py  : >>runscript.py 
 * recCaptureRecognize.py : make sure u have camera attached to PC., run in console as >>recCaptureRecognize.py
 * imgRecognize.py : >>imgRecognize.py <input file names without extension in testimage folder seperated by whitespace>
         ( if file input not given, takes a random file from 0-9 and shows it output )
