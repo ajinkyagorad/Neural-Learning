@@ -1,5 +1,7 @@
 import numpy as np
 import random
+import cv2
+import time
 class Network(object):
 	def __init__(self,sizes):
 		self.num_layers = len(sizes)
@@ -23,6 +25,27 @@ class Network(object):
 				for k in xrange(0, n, mini_batch_size)]
 			for mini_batch in mini_batches:
 				self.update_mini_batch(mini_batch, eta)
+				#display weights and biases after every training set
+			wei = self.weights[0]
+			min,max,minPos,maxPos = cv2.minMaxLoc(wei)
+			#print min,max
+			wei = (wei-min)*255/(max-min) 
+			wei = wei.astype(int)
+			wei = cv2.convertScaleAbs(wei,alpha = 1)
+			# now wei is uint8 matrix
+			l =[]
+			
+			for i in xrange(10):
+				l.append(wei[i].reshape(28,28))
+				l[i] = cv2.resize(l[i],None,fx=10,fy=10, interpolation = cv2.INTER_LINEAR)
+				cv2.imshow('layer'+str(i),l[i])
+				
+			wei = cv2.resize(wei,None,fx=2,fy=15, interpolation = cv2.INTER_LINEAR)
+			cv2.imshow('weights',wei)
+			cv2.waitKey(1000)
+			#time.sleep(1)
+			
+			
 			if test_data:
 				print "Epoch {0}: {1} / {2}".format(j, self.evaluate(test_data), n_test)
 			else:

@@ -13,9 +13,9 @@ cap = cv2.VideoCapture(0)
 #kernal=np.ones( (5,5), np.float32)/25
 ret3 =200
 #initialize network
-net = network.Network([784, 50, 10])  #input,hidden,output
+net = network.Network([784, 30,20, 10])  #input,hidden,output
 #net.SGD(training_data, 5, 10, 2.0, test_data = test_data)
-f=open('50hl.bin','rb')
+f=open('bw.784.30.20.10.bin','rb')
 net.biases = np.load(f)	
 net.weights = np.load(f)	 # load trained weights  and biases
 f.close() #close the file after reading weights and biases
@@ -83,4 +83,9 @@ while (True):
 	img_list = np.array(zip(*[img_list]))
 	result = net.feedforward(img_list)
 	recognizedNum=np.argmax(result)
-	print 'recognized as '+str(recognizedNum)+' with confidence % of'+str(result[recognizedNum][0]*100)
+	confidence = result[recognizedNum][0]*100
+	if confidence >99 :
+		print 'recognized as '+str(recognizedNum)+' with confidence % of'+str(confidence)
+	else : 
+		#print 'got as'+str(recognizedNum)+'with confidence'+str(confidence)
+		x =1

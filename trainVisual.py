@@ -1,5 +1,5 @@
 import mnist_loader
-import Network as network
+import Network_v as network
 import numpy as np
 import sys # for input argument from user
 if __name__ == '__main__':
@@ -12,7 +12,7 @@ if __name__ == '__main__':
 	print 'Given Layers as ' 
 	print layers
 	net = network.Network(layers)
-	net.SGD(training_data, 10 , 10, 3.0, test_data = test_data)
+	net.SGD(training_data, 15 , 1, 3.0, test_data = test_data)
 	
 	# to save weights and biases to file
 	fname = "bw"
