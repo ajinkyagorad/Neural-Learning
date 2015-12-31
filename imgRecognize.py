@@ -10,9 +10,9 @@ import Network as network
 def recognize(img_name):
 	training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
 	img_list= loadImage(img_name)
-	net = network.Network([784, 50, 10])  #input,hidden,output
+	net = network.Network([784, 100, 10])  #input,hidden,output
 	#net.SGD(training_data, 5, 10, 2.0, test_data = test_data)
-	f=open('50hl.bin','rb')
+	f=open('100hl.bin','rb')
 	net.biases = np.load(f)	
 	net.weights = np.load(f)	 # load trained weights  and biases
 	f.close() #close the file after reading weights and biases

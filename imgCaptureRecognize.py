@@ -55,13 +55,19 @@ while (True):
 	imgCropped =gray[y:y+h,x:x+w]
 	#cv2.imshow('imgCropped', imgCropped)
 	cv2.drawContours(gray,largestcontour,-1, (255,0,0),2)
-	cv2.rectangle(gray, (x,y),(x+w, y+h), (0,255,0),2)
+	
 	'''
 	
 	#cv2.imshow('Grayscaled Input Image', gray)
+	h, w, = thresh1.shape
 	
+	imageBlock = thresh1[h/4:3*h/4, w/4:w/4+h/2]
+	resizedImage = cv2.resize(imageBlock,(28,28),interpolation =cv2.INTER_LINEAR )
+	#make rectangle on the area
+	
+	cv2.rectangle(thresh1, (w/4,h/4),(w/4+h/2, 3*h/4), (0,255,0),2)
 	cv2.imshow('thresholded Image',thresh1)
-	resizedImage = cv2.resize(thresh1,(28,28),interpolation =cv2.INTER_LINEAR )
+	
 	#resizedImage = cv2.threshold(resizedImage,5,255,cv2.THRESH_BINARY)
 	#cv2.imshow('resized image', resizedImage)
 	rImg2 = cv2.resize(resizedImage,(320,320), interpolation = cv2.INTER_LINEAR)
