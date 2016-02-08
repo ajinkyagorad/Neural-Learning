@@ -12,7 +12,8 @@ if __name__ == '__main__':
 	print 'Given Layers as ' 
 	print layers
 	net = network.Network(layers)
-	net.SGD(training_data, 15 , 1, 3.0, test_data = test_data)
+	net.SGD(training_data, 990, 15, 5.0, test_data = test_data)
+	#net.SGD(training_data, 70 , 15, 5.0, test_data = test_data)
 	
 	# to save weights and biases to file
 	fname = "bw"

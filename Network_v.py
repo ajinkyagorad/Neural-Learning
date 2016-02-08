@@ -13,7 +13,15 @@ class Network(object):
 		"""Return the output of the Network if "a" is input"""
 		for  b, w in zip(self.biases, self.weights):
 			a = sigmoid(np.dot(w,a)+b)
+		#view activations
 		return a	
+	def scaleGSImg(self,wei):
+		min,max,minPos,maxPos = cv2.minMaxLoc(wei)
+		#print min,max
+		wei = (wei-min)*255/(max-min) 
+		wei = wei.astype(int)
+		wei = cv2.convertScaleAbs(wei,alpha = 1)
+		return wei
 	def SGD(self, training_data, epochs, mini_batch_size, eta, test_data=None):
 		"""Train the neural network using mini-batch stochastic gradient descent. The "training_data" is a list of tuples "(x, y)" representing the training inputs and the desired outputs. The other  non-optional parameters are self-explanatory. If "test_data" is provided then the network  will be evaluated against the test data after each epoch, and partial progress printed out. This is useful for tracking prorgress, but slows things down substantially."""
 		if test_data: n_test=len(test_data)
@@ -27,25 +35,34 @@ class Network(object):
 				self.update_mini_batch(mini_batch, eta)
 				#display weights and biases after every training set
 			wei = self.weights[0]
-			min,max,minPos,maxPos = cv2.minMaxLoc(wei)
-			#print min,max
-			wei = (wei-min)*255/(max-min) 
-			wei = wei.astype(int)
-			wei = cv2.convertScaleAbs(wei,alpha = 1)
+			wei = self.scaleGSImg(wei)
 			# now wei is uint8 matrix
-			l =[]
+			l =[]		# l is weights matrix
+			
+			for i in xrange(self.sizes[1]):
+				l.append(wei[i].reshape(28,28))
+				'''l[i] = cv2.resize(l[i],None,fx=10,fy=10, interpolation = cv2.INTER_LINEAR)
+				cv2.imshow('Output'+str(i),l[i])'''
+			
+			# transform those images  using weights
+			linscal = self.weights[1] # get corresponding weights for second layer
 			
 			for i in xrange(10):
-				l.append(wei[i].reshape(28,28))
-				l[i] = cv2.resize(l[i],None,fx=10,fy=10, interpolation = cv2.INTER_LINEAR)
-				cv2.imshow('layer'+str(i),l[i])
-				
-			wei = cv2.resize(wei,None,fx=2,fy=15, interpolation = cv2.INTER_LINEAR)
+				img = 0
+				for k in xrange(self.sizes[1]):
+					img = img+linscal[i][k] * l[k]
+				img = self.scaleGSImg(img)
+				img = cv2.resize(img,None,fx=4,fy=4,interpolation = cv2.INTER_LINEAR)
+				img = cv2.applyColorMap(img,cv2.COLORMAP_HSV)
+				cv2.imshow('layer'+str(i),img)
+				cv2.waitKey(10)
+			#wei = cv2.resize(wei,None,fx=1,fy=1, interpolation = cv2.INTER_LINEAR)
+			wei = cv2.applyColorMap(wei,cv2.COLORMAP_HSV)
 			cv2.imshow('weights',wei)
-			cv2.waitKey(1000)
+			
 			#time.sleep(1)
 			
-			
+				
 			if test_data:
 				print "Epoch {0}: {1} / {2}".format(j, self.evaluate(test_data), n_test)
 			else:

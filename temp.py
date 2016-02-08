@@ -1,21 +1,11 @@
-import numpy as np
 import cv2
-import Network_v as network
-import time
-if __name__ == "__main__":
-	net = network.Network([784,50,10])
-	f = open('50hl.bin','rb')
-	net.biases = np.load(f)	
-	net.weights = np.load(f)	 # load trained weights  and biases
-	f.close() #close the file after reading weights and biases
-	weights = net.weights[0]
-	print weights
-	min,max,minPos,maxPos = cv2.minMaxLoc(weights)
-	weiImg = (weights-min)*255/(max-min)
-	weiImg = weiImg.astype(int)
-#	weiImg = np.zeros(weiImg.shape)
-	print weiImg
-	cv2.imshow('weights',weiImg)
-	time.sleep(5)
-	#if cv2.waitKey(1) & 0xFF ==ord('q'):
-		
+import numpy as np
+cam = cv2.VideoCapture(0)
+while(True):
+	ret,frame = cam.read()
+	#frame = cv2.blur(frame,(5,5))
+	hsvImg = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+	hsvImg = cv2.blur(hsvImg,(50,50))
+	if cv2.waitKey(1) & 0xFF == ord('q'):
+		break
+	cv2.imshow('HSV Image',hsvImg)

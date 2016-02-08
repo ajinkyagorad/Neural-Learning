@@ -8,14 +8,21 @@ import sys # for input for user file   from user
 import mnist_loader
 import Network as network
 
+def scaleImg(wei):
+		min,max,minPos,maxPos = cv2.minMaxLoc(wei)
+		#print min,max
+		wei = (wei-min)*255/(max-min) 
+		wei = wei.astype(int)
+		wei = cv2.convertScaleAbs(wei,alpha = 1)
+		return wei
 
 cap = cv2.VideoCapture(0)
 #kernal=np.ones( (5,5), np.float32)/25
 ret3 =200
 #initialize network
-net = network.Network([784, 30,20, 10])  #input,hidden,output
+net = network.Network([784, 10])  #input,hidden,output
 #net.SGD(training_data, 5, 10, 2.0, test_data = test_data)
-f=open('bw.784.30.20.10.bin','rb')
+f=open('bw.784.10.bin','rb')
 net.biases = np.load(f)	
 net.weights = np.load(f)	 # load trained weights  and biases
 f.close() #close the file after reading weights and biases
@@ -77,12 +84,21 @@ while (True):
 	#image testing -- takes the input image and classifies it
 	img = resizedImage
 	img_array = np.asarray(img)
-	img_array = img_array.ravel()
+	
 	img_array =1-(1.0/255)*img_array
+	img2D= img_array
+	img_array = img_array.ravel()
 	img_list = img_array.tolist()
 	img_list = np.array(zip(*[img_list]))
 	# image is converted to desired form
 	result = net.feedforward(img_list)
+	convImg  = img2D * net.weights[0][0].reshape(28,28)
+	
+	# scale image
+	convImg = scaleImg(convImg)
+	convImg = cv2.resize(convImg,(320,320), interpolation = cv2.INTER_LINEAR)
+	cv2.imshow('conv image', convImg)
+	# also show the weights  for each input
 	recognizedNum=np.argmax(result)
 	confidence = result[recognizedNum][0]*100
 	if confidence >99 :
