@@ -3,11 +3,11 @@
 ![Running it the first time](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/firstLook.JPG)
 ##Interesting Observation
 After scaling weights matrix and plotting it as image
-![Voila](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/tree/master/img/layers.JPG)
+![Voila](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/layers.JPG)
 ##Extracted Images from it
-![9-6](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/tree/master/img/9876.JPG)
-![5-2](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/tree/master/img/5432.JPG)
-![1-0](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/tree/master/img/10.JPG)
+![9-6](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/9876.JPG)
+![5-2](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/5432.JPG)
+![1-0](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/10.JPG)
 
 ##Info about files :
 More than Half of the files are from https://github.com/mnielsen/neural-networks-and-deep-learning.git
