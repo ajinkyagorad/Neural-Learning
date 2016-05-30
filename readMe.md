@@ -1,9 +1,9 @@
 #Neural Learning
 ##First Run
-![Running it the first time](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/firstLook.JPG)
+![Running it the first time](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/1.JPG)
 ##Interesting Observation
 After scaling weights matrix and plotting it as image
-![Voila](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/layers.JPG)
+![Voila](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/firstLookR.JPG)
 ##Extracted Images from it
 ![9-6](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/9876.JPG)
 ![5-2](https://raw.githubusercontent.com/ajinkyagorad/Neural-Learning/master/img/5432.JPG)
